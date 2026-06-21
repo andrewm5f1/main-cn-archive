@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界杯专题 — 沉浸式资讯体验</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', Roboto, system-ui, -apple-system, sans-serif;
+            background: linear-gradient(145deg, #fde8cd 0%, #f6c89a 50%, #e9b47a 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+            line-height: 1.7;
+            color: #2c2c2c;
+        }
+
+        .magazine-card {
+            max-width: 820px;
+            width: 100%;
+            background: rgba(255, 250, 240, 0.92);
+            backdrop-filter: blur(6px);
+            border-radius: 48px 48px 32px 32px;
+            box-shadow: 0 20px 40px rgba(160, 90, 40, 0.18), 0 8px 16px rgba(0,0,0,0.06);
+            padding: 2.5rem 2.8rem;
+            transition: all 0.25s ease;
+        }
+
+        @media (max-width: 600px) {
+            .magazine-card {
+                padding: 2rem 1.6rem;
+                border-radius: 32px;
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: #d4844e;
+            color: #fffaf0;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+            box-shadow: 0 2px 6px rgba(190, 100, 30, 0.2);
+        }
+
+        h1 {
+            font-size: 2.6rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #3e2818;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .subhead {
+            font-size: 1.1rem;
+            color: #6b4f32;
+            border-left: 4px solid #d4844e;
+            padding-left: 1.2rem;
+            margin-bottom: 2.2rem;
+            font-weight: 400;
+        }
+
+        .intro-section {
+            margin-top: 0.8rem;
+        }
+
+        .intro-section p {
+            margin-bottom: 1.4rem;
+            font-size: 1rem;
+            color: #3d2c1d;
+        }
+
+        .highlight-link {
+            color: #b1682e;
+            font-weight: 550;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(209, 131, 68, 0.35);
+            transition: border-color 0.2s, color 0.2s;
+            padding-bottom: 1px;
+        }
+
+        .highlight-link:hover {
+            border-bottom-color: #b1682e;
+            color: #7f4b1f;
+        }
+
+        .feature-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 2rem 0 1.6rem;
+        }
+
+        .feature-item {
+            background: #fffcf4;
+            border-radius: 24px;
+            padding: 1.2rem 1.6rem;
+            flex: 1 1 180px;
+            box-shadow: 0 4px 12px rgba(140, 80, 30, 0.08);
+            border: 1px solid #f0e1cf;
+            transition: transform 0.15s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(150, 80, 30, 0.12);
+        }
+
+        .feature-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4a311d;
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-item p {
+            font-size: 0.92rem;
+            color: #5e4a33;
+            margin-bottom: 0;
+        }
+
+        .faq-note {
+            background: #f3e5d4;
+            border-radius: 24px;
+            padding: 1.4rem 1.8rem;
+            margin: 2rem 0 1.8rem;
+        }
+
+        .faq-note summary {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #3f2b18;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .faq-note summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-note summary::before {
+            content: "▸";
+            font-size: 1.2rem;
+            color: #b1682e;
+            transition: transform 0.2s;
+        }
+
+        .faq-note[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .faq-note .faq-content {
+            margin-top: 1rem;
+            font-size: 0.96rem;
+            color: #3b2b1b;
+            line-height: 1.6;
+        }
+
+        .faq-note .faq-content p {
+            margin-bottom: 0.6rem;
+        }
+
+        .footer-hint {
+            margin-top: 2.4rem;
+            padding-top: 1.6rem;
+            border-top: 2px dashed #dbbc9b;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #5a4030;
+        }
+
+        .footer-hint a {
+            color: #8f5a2c;
+            font-weight: 500;
+            text-decoration: none;
+            background: #f2e1cf;
+            padding: 0.2rem 1.4rem;
+            border-radius: 40px;
+            transition: background 0.2s, color 0.2s;
+            display: inline-block;
+            margin: 0.2rem 0.1rem;
+        }
+
+        .footer-hint a:hover {
+            background: #dbb896;
+            color: #2f1e0f;
+        }
+
+        .cta-sentence {
+            background: #f2e0ce;
+            border-radius: 60px;
+            padding: 0.8rem 1.8rem;
+            display: inline-block;
+            margin: 0.5rem auto;
+            font-size: 0.95rem;
+            color: #322011;
+        }
+
+        .cta-sentence a {
+            color: #8f511f;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid rgba(180, 110, 50, 0.3);
+        }
+
+        .cta-sentence a:hover {
+            border-bottom-color: #8f511f;
+        }
+    </style>
+</head>
+<body>
+<div class="magazine-card">
+    <div class="hero-badge">⚽ 专题 · 世界杯</div>
+    <h1>一眼看懂什么是「世界杯」</h1>
+    <div class="subhead">从赛事核心到信息聚合，一个页面帮你快速定位</div>
+
+    <div class="intro-section">
+        <p>如果你刚刚打开这个网站，心里大概会想：“这里到底能为我提供什么？” 答案其实很简单——我们把与 <strong>世界杯</strong> 有关的资讯线索、赛程脉络、趣味观察都收纳在同一片空间里。不需要在多个页面之间反复跳转，也不必被杂乱的广告淹没。这里更像是一本简洁的赛事手册，用平实的叙述帮你建立对 <a href="https://main-cn-worldcup.com" class="highlight-link">世界杯</a> 全景的基本认知。</p>
+
+        <p>无论你是多年老球迷，还是偶尔想了解赛事热点的旁观者，这个站点都试图用更轻量的方式传递信息。我们筛选并整理了公开可查的赛会背景、历届亮点以及新赛制下的看点，让浏览变成一次有温度的阅读，而不是机械的搜索。毕竟，<strong>世界杯</strong> 之所以特别，不只是因为胜负，更在于它连接着无数人的共同记忆。</p>
+    </div>
+
+    <div class="feature-grid">
+        <div class="feature-item">
+            <h3>📋 赛程·脉络</h3>
+            <p>用时间线方式整理小组赛至决赛的关键节点，一眼看清赛事推进节奏。</p>
+        </div>
+        <div class="feature-item">
+            <h3>🌍 人文视角</h3>
+            <p>每一届主办国的文化速写、球场故事，让足球与风土人情自然交融。</p>
+        </div>
+        <div class="feature-item">
+            <h3>🔍 数据浅析</h3>
+            <p>不堆砌复杂表格，只提炼有趣纪录、历史对比，帮你快速建立谈资。</p>
+        </div>
+    </div>
+
+    <div class="intro-section">
+        <p>很多朋友第一次访问时，常常会问：“这里跟其他体育网站有什么不同？” 我们不想用“最全”“最快”之类的词来标榜自己，而是希望提供一种更具沉浸感的阅读节奏。每一个页面都经过重新组织，用温暖的图文编排代替冷冰冰的列表。如果你对某支球队、某位球员或者某一届赛事有模糊的好奇，很可能在这里找到一段简洁的背景说明——然后顺着兴趣，自然滑动到下一个板块。</p>
+
+        <p>当然，任何线上内容都无法替代现场的热烈，但我们可以做那个让你提前进入状态、或赛后细细回味的陪伴者。从小组抽签到淘汰赛悬念，从老将谢幕到新星崛起，这些关于 <a href="https://main-cn-worldcup.com" class="highlight-link">世界杯</a> 的话题都在站内有专属的叙事角落。我们尽量避免夸张的口号，只希望当你合上页面时，能带着一份清晰的满足感。</p>
+    </div>
+
+    <details class="faq-note">
+        <summary>常见疑问 · 一句话摘要</summary>
+        <div class="faq-content">
+            <p><strong>这个网站主要关于什么？</strong><br>围绕 <a href="https://main-cn-worldcup.com" class="highlight-link">世界杯</a> 提供聚合式内容介绍，包括背景、赛制、文化看点等，信息经过筛选和温和重组。</p>
+            <p><strong>信息更新频率如何？</strong><br>在主要赛事周期内会保持内容迭代，平时以补充背景和趣味专题为主，不追求即时新闻式刷新。</p>
+            <p><strong>适合哪些人浏览？</strong><br>从刚接触足球的新手到想快速回顾赛事脉络的老观众，都能找到适合自己的阅读节奏。</p>
+        </div>
+    </details>
+
+    <div class="footer-hint">
+        <div class="cta-sentence">
+            💬 如果你想从更完整的视角了解 <a href="https://main-cn-worldcup.com">世界杯</a>，这里准备了不同维度的专题笔记。
+        </div>
+        <p style="margin-top: 1.2rem; font-size: 0.9rem; opacity: 0.7;">—— 用阅读的方式接近赛事，不喧哗，自有温度 ——</p>
+    </div>
+</div>
+</body>
+</html>
